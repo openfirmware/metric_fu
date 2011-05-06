@@ -12,7 +12,7 @@ module MetricFu
   AVAILABLE_METRICS << :saikuro unless RUBY_VERSION == '1.9.2'
 
   AVAILABLE_GRAPHS = [:flog, :flay, :reek, :roodi, :rcov, :rails_best_practices]
-  AVAILABLE_GRAPH_ENGINES = [:gchart, :bluff]
+  AVAILABLE_GRAPH_ENGINES = [:gchart, :bluff, :gatimeline]
 
   # The @@configuration class variable holds a global type configuration
   # object for any parts of the system to use.
@@ -147,7 +147,7 @@ module MetricFu
 
       @verbose = false
 
-      @graph_engine = :bluff # can be :bluff or :gchart
+      @graph_engine = :bluff # can be :bluff or :gchart or :gatimeline
 
       @darwin_txmt_protocol_no_thanks = false
       @syntax_highlighting = true #Can be set to false to avoid UTF-8 issues with Ruby 1.9.2 and Syntax 1.0

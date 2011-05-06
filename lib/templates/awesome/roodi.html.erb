@@ -5,6 +5,9 @@
 <% graph_name = 'roodi' %>
 <% if MetricFu.configuration.graph_engine == :gchart %>
 <img src="<%= graph_name %>.png?<%= Time.now.to_i %>" />
+<% elsif MetricFu.configuration.graph_engine == :gatimeline %>
+<div id="chart_div" style="width:1000px; height: 600px;"></div>
+<script language="javascript" src="<%= graph_name %>.js?<%= Time.now.to_i %>" type="text/javascript"></script>
 <% else %>
 <canvas id="graph"></canvas>
 <script language="javascript" src="<%= graph_name %>.js?<%= Time.now.to_i %>" type="text/javascript"></script>

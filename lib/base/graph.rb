@@ -27,7 +27,7 @@ module MetricFu
         metrics = YAML::load(File.open(metric_file))
 
         self.clazz.each do |grapher|
-          grapher.get_metrics(metrics, "#{date_parts[:m]}/#{date_parts[:d]}")
+          grapher.get_metrics(metrics, "#{date_parts[:y]}/#{date_parts[:m]}/#{date_parts[:d]}")
         end
       end
       self.clazz.each do |grapher|

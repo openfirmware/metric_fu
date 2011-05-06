@@ -29,10 +29,18 @@ module MetricFu
            "If you want to use google charts for graphing, you'll need to install the googlecharts rubygem." +
            "\n" + "#"*99
     end
+
+    # Drop year from date label
+    def reformat_date!
+      @labels.each do |index, date|
+        @labels[index] = date.split('/').drop(1).join('/')
+      end
+    end
   end
 
   class FlayGchartGrapher < FlayGrapher
     def graph!
+      reformat_date!
       determine_y_axis_scale(@flay_score)
       url = Gchart.line(
         :size => GCHART_GRAPH_SIZE,
@@ -48,6 +56,7 @@ module MetricFu
 
   class FlogGchartGrapher < FlogGrapher
     def graph!
+      reformat_date!
       determine_y_axis_scale(@top_five_percent_average + @flog_average)
       url = Gchart.line(
         :size => GCHART_GRAPH_SIZE,
@@ -67,6 +76,7 @@ module MetricFu
 
   class RcovGchartGrapher < RcovGrapher
     def graph!
+      reformat_date!
       url = Gchart.line(
         :size => GCHART_GRAPH_SIZE,
         :title => URI.escape("Rcov: code coverage"),
@@ -82,6 +92,7 @@ module MetricFu
 
   class ReekGchartGrapher < ReekGrapher
     def graph!
+      reformat_date!
       determine_y_axis_scale(@reek_count.values.flatten.uniq)
       values = []
       legend = @reek_count.keys.sort
@@ -105,6 +116,7 @@ module MetricFu
 
   class RoodiGchartGrapher < RoodiGrapher
     def graph!
+      reformat_date!
       determine_y_axis_scale(@roodi_count)
       url = Gchart.line(
         :size => GCHART_GRAPH_SIZE,
@@ -120,6 +132,7 @@ module MetricFu
 
   class StatsGchartGrapher < StatsGrapher
     def graph!
+      reformat_date!
       determine_y_axis_scale(@loc_counts + @lot_counts)
       url = Gchart.line(
         :size => GCHART_GRAPH_SIZE,
@@ -138,6 +151,7 @@ module MetricFu
 
   class RailsBestPracticesGchartGrapher < RailsBestPracticesGrapher
     def graph!
+      reformat_date!
       determine_y_axis_scale(@rails_best_practices_count)
       url = Gchart.line(
         :size => GCHART_GRAPH_SIZE,

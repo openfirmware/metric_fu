@@ -48,6 +48,13 @@ describe "Gchart graphers" do
       Gchart.should_receive(:line).with(hash_including(expected))
       grapher.graph!
     end
+
+    it "should reformat the date" do
+      grapher = FlayGchartGrapher.new
+      grapher.labels[0] = "2011/05/06"
+      grapher.graph!
+      grapher.labels[0].should == "05/06"
+    end
   end
 
   describe "FlogGchartGrapher graph! method" do

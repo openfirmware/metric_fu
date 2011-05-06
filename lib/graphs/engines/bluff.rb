@@ -11,10 +11,18 @@ module MetricFu
       g.legend_font_size = "12px"
       g.marker_font_size = "10px"
     EOS
+
+    # Drop year from date label
+    def reformat_date!
+      @labels.each do |index, date|
+        @labels[index] = date.split('/').drop(1).join('/')
+      end
+    end
   end
 
   class FlayBluffGrapher < FlayGrapher
     def graph!
+      reformat_date!
       content = <<-EOS
         #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Flay: duplication';
@@ -28,6 +36,7 @@ module MetricFu
 
   class FlogBluffGrapher < FlogGrapher
     def graph!
+      reformat_date!
       content = <<-EOS
         #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Flog: code complexity';
@@ -42,6 +51,7 @@ module MetricFu
 
   class RcovBluffGrapher < RcovGrapher
     def graph!
+      reformat_date!
       content = <<-EOS
         #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Rcov: code coverage';
@@ -55,6 +65,7 @@ module MetricFu
 
   class ReekBluffGrapher < ReekGrapher
     def graph!
+      reformat_date!
       legend = @reek_count.keys.sort
       data = ""
       legend.each do |name|
@@ -73,6 +84,7 @@ module MetricFu
 
   class RoodiBluffGrapher < RoodiGrapher
     def graph!
+      reformat_date!
       content = <<-EOS
         #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Roodi: design problems';
@@ -86,6 +98,7 @@ module MetricFu
 
   class StatsBluffGrapher < StatsGrapher
     def graph!
+      reformat_date!
       content = <<-EOS
         #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Stats: LOC & LOT';
@@ -100,6 +113,7 @@ module MetricFu
 
   class RailsBestPracticesBluffGrapher < RailsBestPracticesGrapher
     def graph!
+      reformat_date!
       content = <<-EOS
         #{BLUFF_DEFAULT_OPTIONS}
         g.title = 'Rails Best Practices: design problems';
